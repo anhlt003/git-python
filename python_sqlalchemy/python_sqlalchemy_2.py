@@ -1,5 +1,4 @@
-from datetime import datetime
-
+from datetime import datetimex
 from sqlalchemy import (MetaData, Table, Column, Integer, Numeric, String,
                         DateTime, ForeignKey, create_engine)
 metadata = MetaData()
@@ -38,6 +37,6 @@ line_items = Table('line_items', metadata,
 )
 
 engine = create_engine('sqlite:///stock.db')
+# engine = create_engine("mysql+pymysql://root:p@ssw0rd@localhost/pythondb",echo = True)
 metadata.create_all(engine)
-
 connection = engine.connect()

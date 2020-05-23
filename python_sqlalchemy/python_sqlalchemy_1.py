@@ -1,10 +1,23 @@
-# Connecting to database. 
-# The create_engine function returns an instance of an engine; however, it does not actually open a connection until an action is called that would require a connection, such as a query.
 from sqlalchemy import create_engine
-# engine = create_engine('sqlite:///cookies.db')
-engine2 = create_engine('sqlite:///:memory:')
-# engine3 = create_engine('sqlite:////home/cookiemonster/cookies.db')
-# engine4 = create_engine('sqlite:///c:\\Users\\cookiemonster\\cookies.db')
+from sqlalchemy import (MetaData, Table, Column, Integer, Numeric, String,
+                        DateTime, ForeignKey, create_engine)
+from urllib import parse
 
-print('create engine in memory success!')
+engineString = 'mysql+pymysql://root:%s@localhost/pythondb' % parse.unquote_plus('P@ssw0rd')
+engine = create_engine(engineString,echo = True)
 
+print('create engine sqllite in memory success!',engine)
+
+metadata = MetaData()
+
+cookies = Table('cookies', metadata,
+    Column('cookie_id', Integer(), primary_key=True),
+    Column('cookie_name', String(50), index=True),
+    Column('cookie_recipe_url', String(255)),
+    Column('cookie_sku', String(55)),
+    Column('quantity', Integer()),
+    Column('unit_cost', Numeric(12, 2))
+)
+
+
+metadata.create_all(engine)
