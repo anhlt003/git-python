@@ -30,7 +30,7 @@ class Batch:
 
     def allocate(self, line: OrderLine):
         if self.can_allocate(line):
-            self._allocations.add(line)
+            self.add(line)
 
     def deallocate(self, line: OrderLine):
         if line in self._allocations:
