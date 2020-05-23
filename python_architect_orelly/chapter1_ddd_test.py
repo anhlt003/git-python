@@ -1,4 +1,4 @@
-from python_architect_orelly.chapter1_ddd import Batch,OrderLine
+from chapter1_ddd import Batch,OrderLine
 from datetime import date
 
 def make_batch_and_line(sku, batch_qty, line_qty):
