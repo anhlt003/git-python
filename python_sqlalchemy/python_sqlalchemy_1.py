@@ -42,3 +42,4 @@ line_items = Table('line_items', metadata,
 )
 metadata.create_all(engine)
 connection = engine.connect()
+connection.close()
