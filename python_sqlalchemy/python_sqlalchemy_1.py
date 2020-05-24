@@ -1,12 +1,10 @@
-from sqlalchemy import create_engine
+from datetime import datetime
 from sqlalchemy import (MetaData, Table, Column, Integer, Numeric, String,
                         DateTime, ForeignKey, create_engine)
 from urllib import parse
-
+# engine = create_engine('sqlite:///stock.db')
 engineString = 'mysql+pymysql://root:%s@localhost/pythondb' % parse.unquote_plus('P@ssw0rd')
 engine = create_engine(engineString,echo = True)
-
-print('create engine sqllite in memory success!',engine)
 
 metadata = MetaData()
 
@@ -19,5 +17,28 @@ cookies = Table('cookies', metadata,
     Column('unit_cost', Numeric(12, 2))
 )
 
+users = Table('users', metadata,
+    Column('user_id', Integer(), primary_key=True),
+    Column('customer_number', Integer(), autoincrement=True),
+    Column('username', String(15), nullable=False, unique=True),
+    Column('email_address', String(255), nullable=False),
+    Column('phone', String(20), nullable=False),
+    Column('password', String(25), nullable=False),
+    Column('created_on', DateTime(), default=datetime.now),
+    Column('updated_on', DateTime(), default=datetime.now, onupdate=datetime.now)
+)
 
+orders = Table('orders', metadata,
+    Column('order_id', Integer(), primary_key=True),
+    Column('user_id', ForeignKey('users.user_id'))
+)
+
+line_items = Table('line_items', metadata,
+    Column('line_items_id', Integer(), primary_key=True),
+    Column('order_id', ForeignKey('orders.order_id')),
+    Column('cookie_id', ForeignKey('cookies.cookie_id')),
+    Column('quantity', Integer()),
+    Column('extended_cost', Numeric(12, 2))
+)
 metadata.create_all(engine)
+connection = engine.connect()
