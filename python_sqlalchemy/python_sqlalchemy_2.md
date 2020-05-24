@@ -2,8 +2,8 @@
 # we can insert single or multiple row. 
 # using insert statement or insert function.
 # INSERT SEL
-# -----------------------------------------------------------------------------------
-# -----------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
     from sqlalchemy import create_engine
     from sqlalchemy import insert
     from urllib import parse
@@ -68,7 +68,7 @@
 
 # --------------------------------------------------------------------------------
 # RESULT PROXY SEL/ SELECT SEL
-# ----------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
 #     -> select([object.c.<column_name1>, object.c.<column_name_2> ])
 #     -> first(): return the first record of results in connection.execute()
 #     -> fetchone(): Returns one row, and leaves the cursor open
@@ -94,7 +94,7 @@
 
 # --------------------------------------------------------------------------------
 # RESULT PROXY SEL/ INSERT/DELETE/JOIN/ALIASES/GROUP/CHAINING SEL
-# ----------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
 #       -> rs= Update(<objects>).where(filter_condition)
 #       -> rs= rs.value(<set_condition>) 
 #       -> Delete(<object>).where(del_condition)
@@ -123,7 +123,9 @@
 
     connection.close()
     #TBD: Will define other SEL after/ just refer basic infomation.// Using storeprocedure insteadly
-
+    # study learn SEL: 
+    # https://www.tutorialspoint.com/sqlalchemy/sqlalchemy_core_using_functions.htm
 # --------------------------------------------------------------------------------
 # RAW QUERY AND STOREPROCEDURE in SqlAlchemy
-# ----------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# https://docs.sqlalchemy.org/en/13/core/connections.html
