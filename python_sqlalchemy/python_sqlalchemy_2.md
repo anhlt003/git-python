@@ -129,3 +129,43 @@
 # RAW QUERY AND STOREPROCEDURE in SqlAlchemy
 # --------------------------------------------------------------------------------
 # https://docs.sqlalchemy.org/en/13/core/connections.html
+# There are some cases when SQLAlchemy does not provide a genericized way at access some DBAPI functions, like support storeprocedure -> we new use DBAPI connection directly. It's called raw_connection. 
+# When use raw_connection / we need catch exception by module pymysql.
+
+    from sqlalchemy import create_engine
+    from sqlalchemy import select 
+    from urllib import parse
+    from python_sqlalchemy_1 import cookies
+    import pprint
+
+    engineString = 'mysql+pymysql://root:%s@localhost/pythondb' % parse.unquote_plus('P@ssw0rd')
+    engine = create_engine(engineString,echo = True)
+    printer = pprint.PrettyPrinter()
+
+    try: 
+        dbapi_connection = engine.raw_connection()
+        cursor = dbapi_connection.cursor()
+        cursor.execute("select * from cookies")
+        results_first = cursor.fetchall()
+        print('KQ raw select query : ')
+        printer.pprint(results_first)
+        cursor.close()
+
+    finally: 
+        dbapi_connection.close()
+
+
+    try:
+        dbapi_connection = engine.raw_connection()
+        args = [45]
+        cursor = dbapi_connection.cursor()
+        cursor.callproc('SP_GET_FROM_COOKIES_BY_ID', args)
+        results_second = list(cursor.fetchall())
+        print('KQ raw call proc query : ')
+        printer.pprint(results_second)
+        cursor.close()    
+
+    finally: 
+        dbapi_connection.close()
+
+
