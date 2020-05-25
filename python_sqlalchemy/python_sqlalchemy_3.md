@@ -56,6 +56,7 @@
 # --------------------------------------------------------------------------------
 # HANDLE TRANSACTION in SqlAlchemy
 # --------------------------------------------------------------------------------
-# transaction = connection.begin()
-# transaction.commit()
-# transaction.rollback()
+# with dbapi_connection we need use as below:
+# dbapi_connection.begin()
+# dbapi_connection.commit()
+# dbapi_connection.rollback()
