@@ -2,10 +2,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date , datetime
 from typing import Optional, List, Set
+import decimal
 
 class RunOutAccount(Exception):
     pass
-
 
 def allocate_one(order: OrderUnit, batch: Batch) -> bool: 
     try: 
@@ -26,7 +26,8 @@ def allocate(order:OrderUnit, batches: List[Batch]) -> str:
     except StopIteration: 
         raise RunOutAccount(f'Account is broken: {order.order_item}')
 
-@dataclass(frozen=True)
+
+@dataclass(frozen=False , unsafe_hash=True)
 class OrderUnit:
     order_id: str
     order_item : str
@@ -38,16 +39,20 @@ class OrderUnit:
     order_stoploss: float
     order_takeprofit: float
 
+    @property
+    def order_value(self)-> float:
+        return self.order_price * self.order_lot 
+
 class Batch: 
     def __init__(self,  batch_id: str, 
                         batch_order_item: str, 
-                        batch_total_money: int, 
+                        batch_total_money: float, 
                         batch_time: Optional[date]
                 ):
         self.batch_id = batch_id
         self.batch_order_item = batch_order_item
         self.batch_time = batch_time
-        self._batch_total_money = batch_total_money #can changed properties
+        self._batch_total_money = batch_total_money #will be changed properties
         self._batch_ordered_allocations = set()  #list of order have to be set
 
     def __repr__(self): # representation of this object when print
@@ -77,13 +82,13 @@ class Batch:
             self._batch_ordered_allocations.remove(order)
 
     @property
-    def batch_ordered_money(self) -> int: 
-        return sum((o.order_price*o.order_lot) for o in self._batch_ordered_allocations)
+    def batch_ordered_money(self) -> float: 
+        return float(sum(o.order_value for o in self._batch_ordered_allocations))
 
     @property
-    def batch_available_money(self) -> int:
-        return self._batch_total_money - self.batch_ordered_money
+    def batch_available_money(self) -> float:
+        return float(self._batch_total_money - self.batch_ordered_money)
 
     def can_allocate(self, order: OrderUnit) -> bool: 
         return (self.batch_order_item == order.order_item and    
-                self.batch_available_money >= (order.order_price*order.order_lot))
+                self.batch_available_money >= order.order_value)
