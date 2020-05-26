@@ -6,6 +6,16 @@ from typing import Optional, List, Set
 class RunOutAccount(Exception):
     pass
 
+
+def allocate_one(order: OrderUnit, batch: Batch) -> bool: 
+    try: 
+        if batch != None: 
+            batch.start_order(order)
+            return True
+        return False
+    except: 
+        raise RunOutAccount('Account is broken!')
+
 def allocate(order:OrderUnit, batches: List[Batch]) -> str: 
     try: 
         batch = next(

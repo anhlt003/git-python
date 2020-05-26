@@ -1,6 +1,6 @@
 from datetime import date,datetime,timedelta
 import pytest
-from model import allocate, OrderUnit, Batch, RunOutAccount
+from model import allocate,allocate_one, OrderUnit, Batch, RunOutAccount
 
 today = datetime.now()
 tomorrow = today + timedelta(days=1)
@@ -29,5 +29,9 @@ def test_returns_batch_id_after_allocate_two_batches():
     
     assert rtnValue == batch_01.batch_id
 
+def test_return_true_after_allocate_one_batch(): 
+    batch_01 = Batch('batch_01','BitCoin',300,today) 
+    order = OrderUnit('order_01','BitCoin',today,None,300,1,1,0,300)
+    rtnValue = allocate_one(order,batch_01)
 
-
+    assert rtnValue == True
