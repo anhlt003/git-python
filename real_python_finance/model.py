@@ -40,15 +40,15 @@ class Batch:
         self._batch_total_money = batch_total_money #can changed properties
         self._batch_ordered_allocations = set()  #list of order have to be set
 
-    def __repr__(self):
+    def __repr__(self): # representation of this object when print
         return f'<Batch {self.batch_id}>'
 
-    def __eq__(self, other):
+    def __eq__(self, other): # define standard to compare two object. 
         if not isinstance(other, Batch):
             return False
         return other.batch_id == self.batch_id
     
-    def __hash__(self):
+    def __hash__(self): #get number of object reference
         return hash(self.batch_id)
 
     def __gt__(self, other):
@@ -57,7 +57,7 @@ class Batch:
         if other.batch_time is None:
             return True
         return self.batch_time > other.batch_time    
-    
+
     def start_order(self, order: OrderUnit) :
         if self.can_allocate(order): 
             self._batch_ordered_allocations.add(order)

@@ -45,3 +45,24 @@ s.remove('a')
 print(s)
 for i in s: 
     print(i)
+
+
+# __hash__ // __repr__
+# if __str__ not defined and __repr__ will be used as fallback
+# __repr__ can return to any expression in python grammar
+batch_01 = Batch('batch_01','BitCoin',300,today) 
+print(batch_01)
+print(batch_01.__hash__())
+print(hash(batch_01))
+
+
+# __gt__ //greate than starndard definition
+# __le__ //less than or equal starndard definition
+print ((2.5).__gt__(1))
+print ((1).__le__(1))
+def __le__(self,other): 
+	if self.batch_time is None:
+		return False
+	if other.batch_time is None:
+		return True
+	return self.batch_time <= other.batch_time    
