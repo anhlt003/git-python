@@ -85,7 +85,7 @@ def test_batch_can_add_to_table_by_raw_query(session):
     session.commit()
 
     expected = [
-        model.Batch("batch_01","BitCoin",decimal.Decimal("300.00"),"2020-05-26 14:53:46")
+        model.Batch("batch_01","BitCoin",decimal.Decimal("300.00"),datetime(2020, 5, 26, 14, 53, 46))
     ]
 
     assert session.query(model.Batch).all() == expected
