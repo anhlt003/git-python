@@ -18,7 +18,7 @@ from urllib import parse
 
 @pytest.fixture
 def real_python_finance_db(): 
-    engineString = 'mysql+pymysql://root:%s@localhost/real_python_finance_db' % parse.unquote_plus('P@ssw0rd')
+    engineString = 'mysql+pymysql://root:%s@localhost/real_python_finance_db?charset=utf8mb4' % parse.unquote_plus('P@ssw0rd')
     engine = create_engine(engineString,echo = True)
     metadata.create_all(engine)
     return engine
