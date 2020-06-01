@@ -1,10 +1,14 @@
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
-
+from sqlalchemy.exc import OperationalError
+from pathlib import Path
 from orm import metadata, start_mappers
 from urllib import parse
-
+import requests
+from requests.exceptions import ConnectionError
+import time
+import config
 # @pytest.fixture
 # def in_memory_db():
 #     engine = create_engine('sqlite:///:memory:')
@@ -29,3 +33,20 @@ def session(real_python_finance_db):
     yield sessionmaker(bind=real_python_finance_db)()
     clear_mappers()
 
+
+@pytest.fixture
+def restart_api():
+    (Path(__file__).parent / 'flask_app.py').touch()
+    time.sleep(0.5)
+    wait_for_webapp_to_come_up()
+
+
+def wait_for_webapp_to_come_up():
+    deadline = time.time() + 10
+    url = config.get_api_url()
+    while time.time() < deadline:
+        try:
+            return requests.get(url)
+        except ConnectionError:
+            time.sleep(0.5)
+    pytest.fail('API never came up')

@@ -39,3 +39,12 @@ class SqlArchemyAbstractRepository(ISqlArchemyAbstractRepository):
         return self.session.query(ModelName).all()
 
 
+class BatchSqlArchemyAbstractRepository(SqlArchemyAbstractRepository):
+    def __init__(self, session):
+        self.session = session
+    
+    def get(self, batch_id):
+        return self.session.query(model.Batch).filter_by(batch_id=batch_id).one()
+
+    def list(self):
+        return self.session.query(model.Batch).all()

@@ -1,6 +1,6 @@
 # exception StopIteration
 # The StopIteration error is raised by built-in function next() and an iterator‘s __next__() method to signal that all items are produced by the iterator
-# -------------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 arr = [1,2,3,4,5,6]
 a = next(b for b in arr if b - 6 <= 0)
 c = []
