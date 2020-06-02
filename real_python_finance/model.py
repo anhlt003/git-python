@@ -16,7 +16,7 @@ def allocate_one(order: OrderUnit, batch: Batch) -> bool:
     except: 
         raise RunOutAccount('Account is broken!')
 
-def allocate(order:OrderUnit, batches: List[Batch]) -> str: 
+def allocate(order: OrderUnit, batches: List[Batch]) -> str: 
     try: 
         batch = next(
                 b for b in sorted(batches) if b.can_allocate(order)
@@ -90,5 +90,8 @@ class Batch:
         return float(self._batch_total_money - self.batch_ordered_money)
 
     def can_allocate(self, order: OrderUnit) -> bool: 
-        return (self.batch_order_item == order.order_item and    
-                self.batch_available_money >= order.order_value)
+        try:
+            return (self.batch_order_item == order.order_item and    
+                    self.batch_available_money >= order.order_value)
+        except Exception as e: 
+            return("model error: ",str(e)) 

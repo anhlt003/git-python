@@ -12,7 +12,7 @@ def get_mysql_uri():
 
 
 # print( os.environ.get('DB_HOST','localhost'))
-# print(get_mysql_uri())
+print(get_mysql_uri())
 
 def get_api_url():
     host = os.environ.get('API_HOST', '127.0.0.1')

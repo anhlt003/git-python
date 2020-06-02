@@ -1,6 +1,6 @@
 from sqlalchemy import (
     Table,MetaData,Column,Integer,String,
-    DateTime,ForeignKey,Numeric
+    DateTime,ForeignKey,Numeric,Float
 )
 from sqlalchemy.orm import mapper,relationship
 import model
@@ -14,18 +14,18 @@ order_unit = Table(
     Column('order_item', String(20)),
     Column('order_start_time', DateTime, nullable = False),
     Column('order_end_time',DateTime),
-    Column('order_price',Numeric(10,2)),
-    Column('order_lot',Numeric(10,2)),
+    Column('order_price',Float(10,2)),
+    Column('order_lot',Float(10,2)),
     Column('order_margin',Integer),
-    Column('order_stoploss',Numeric(10,2)),
-    Column('order_takeprofit',Numeric(10,2)),
+    Column('order_stoploss',Float(10,2)),
+    Column('order_takeprofit',Float(10,2)),
 )
 
 batches = Table (
     'tbl_batches', metadata,
     Column('batch_id',String(10),primary_key=True),
     Column('batch_order_item',String(20)),
-    Column('_batch_total_money',Numeric(11,2)),
+    Column('_batch_total_money',Float(11,2)),
     Column('batch_time',DateTime, nullable = False),
 )
 

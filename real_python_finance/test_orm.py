@@ -55,10 +55,10 @@ def test_order_unit_can_add_to_table_by_raw_orm(session):
                         datetime(2020,5, 26, 14, 53, 46),
                         datetime(2020, 5, 26, 14, 53, 46),
                         1000,
-                        decimal.Decimal("0.10"),
+                        0.10,
                         1,
-                        decimal.Decimal("0.00"),
-                        decimal.Decimal("100.00"))
+                        0.00,
+                        100.00)
 
     session.add(new_order)
     session.commit()
@@ -69,7 +69,8 @@ def test_order_unit_can_add_to_table_by_raw_orm(session):
                     datetime(2020, 5, 26, 14, 53, 46), 
                     datetime(2020, 5, 26, 14, 53, 46), 
                     decimal.Decimal('1000.00'), 
-                    decimal.Decimal('0.10'), 1, 
+                    decimal.Decimal('0.10'), 
+                    1, 
                     decimal.Decimal('0.00'), 
                     decimal.Decimal('100.00'))]
 
