@@ -8,8 +8,8 @@ from repository import ISqlArchemyAbstractRepository
 class InvalidOrderItem(Exception): 
     pass
 
-def is_valid_order_item(batch_order_item, batches):
-    return batch_order_item in {b.batch_order_item for b in batches}
+def is_valid_order_item(order_item, batches):
+    return order_item in {b.batch_order_item for b in batches}
 
 def allocate(orderUnit: OrderUnit, repo:ISqlArchemyAbstractRepository , session) -> str:
     batches = repo.list()

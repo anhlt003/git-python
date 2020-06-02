@@ -59,18 +59,15 @@ There are more useful commands in the makefile, have a look and try them out.
 	git add -A																		// add all files in current directory to staging area, making them available for commit																	
 	git commit -m "commit message"        																		 // commit your changes																	
 	git remote add origin "git-setting-browser"																		 // add remote repository URL which contains the required details																	
-	git pull origin master                             																		 // always pull from remote before pushing																	
-	git push -u origin master																		 // publish changes to your remote repository																	
+	git pull origin master      // always pull from remote before pushing					
+	git push -u origin master	// publish changes to your remote repository								
+	git remote -v  // show version of link 																	
+	git remote set-url origin "git - new -browser"	// set new origin 																															
 																																				
-	git remote -v  																		// show version of link 																	
-	git remote set-url origin "git - new -browser"																		// set new origin 																	
-																																				
-																																				
-	refer: 																																			
-	git pull origin master --allow-unrelated-histories																																			
-																																				
-	git clone https://github.com/cosmicpython/code.git																		// clone some link / checkout to current work space																	
-	cd code																																			
-	git checkout chapter_02_repository																		// check out to out branches																	
-	# or to code along, checkout the previous chapter:																																			
+#	refer: 			
+	git pull origin master --allow-unrelated-histories								
+	git clone https://github.com/cosmicpython/code.git	// clone some link / checkout to current work space
+	cd code											
+	git checkout chapter_02_repository // check out to out branches				
+	# or to code along, checkout the previous chapter:																
 	git checkout chapter_01_domain_model																																			

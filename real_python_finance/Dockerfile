@@ -11,5 +11,5 @@ RUN apk del --no-cache .build-deps
 RUN mkdir -p /code
 COPY *.py /code/
 WORKDIR /code
-ENV SET FLASK_APP=flask_app.py FLASK_DEBUG=1 PYTHONUNBUFFERED=1
+ENV export FLASK_APP=flask_app.py FLASK_DEBUG=1 PYTHONUNBUFFERED=1
 CMD flask run --host=127.0.0.1 --port=5000

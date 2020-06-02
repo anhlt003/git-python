@@ -36,7 +36,7 @@ def session(real_python_finance_db):
 
 @pytest.fixture
 def restart_api():
-    (Path(__file__).parent / 'flask_app.py').touch()
+    (Path(__file__).parent/'flask_app.py').touch()
     time.sleep(0.5)
     wait_for_webapp_to_come_up()
 
@@ -44,6 +44,7 @@ def restart_api():
 def wait_for_webapp_to_come_up():
     deadline = time.time() + 10
     url = config.get_api_url()
+    # requests.get(url)
     while time.time() < deadline:
         try:
             return requests.get(url)
