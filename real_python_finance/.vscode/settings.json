@@ -1,6 +1,0 @@
-{
-    // "python.pythonPath": "/path/to/your/venv/bin/python",
-    "python.pythonPath": "c:\\Users\\valor-006\\Desktop\\git-python\\env\\Scripts\\python.exe",
-    "python.autoComplete.extraPaths": ["C:\\Users\\valor-006\\Desktop\\git-python\\real_python_finance"],
-}
-
